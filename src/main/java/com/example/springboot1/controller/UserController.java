@@ -94,16 +94,21 @@ public class UserController {
     }
 
 
-//    @GetMapping('getUserbyid/{id}')
-//    public ResponseEntity<List<Users>> getUserbyid(@PathVariable int id,@RequestHeader("Authorization") String authHeader){
-//        try{
-//            String token = authHeader.replace("Bearer ", "");
-//            String username = jwtService.extractUserName(token);
-//
-//            return service.getUserbyid(id);
-//        }catch (Exception e){
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
+    @GetMapping("/getUserbyid/{id}")
+    public ResponseEntity<Users> getUserById(
+            @PathVariable int id,
+            @RequestHeader("Authorization") String authHeader) {
+        try {
+            String token = authHeader.replace("Bearer ", "");
+            String username = jwtService.extractUserName(token);
+
+            // You can validate the username here if needed
+
+            return service.getUserById(id);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 
 }
