@@ -127,17 +127,16 @@ public class TasksService {
 
 
     //Rertreivng all the tasks for the admin
-    public ResponseEntity<String> getalltasks(int id) {
+    public ResponseEntity<List<Tasks>>getalltasks(){
         try{
-            List<Tasks> getalltask = repo.findAll();
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body("Data Fetched Successfullly for the Individual User" +getalltask);
-
+            List<Tasks> tasks = repo.findAll();
+            if(tasks.isEmpty()){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList());
+            }
+            return ResponseEntity.ok(tasks);
         }catch (Exception e){
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error Retreiving tasks for a individual users" +e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 }

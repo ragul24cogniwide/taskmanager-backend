@@ -99,11 +99,17 @@ public class TaskController {
     }
 
 
-    //Retreiving all the tasks for the admin
-//    @GetMapping("getalltasks/{id}")
-//    public ResponseEntity<String> getalltasks(@PathVariable int id){
-//        return tasksService.getalltasks(id);
-//    }
+    //Retreiving all the tasks for the admin and for the admin tasks too
+    @GetMapping("getalltasks")
+    public ResponseEntity<List<Tasks>>getalltasks(@RequestHeader("Authorization") String authHeader){
+        try{
+            String token = authHeader.replace("Bearer ","");
+            String username  = jwtService.extractUserName(token);
+            return tasksService.getalltasks();
 
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 }
