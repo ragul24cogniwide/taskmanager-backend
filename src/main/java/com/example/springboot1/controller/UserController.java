@@ -94,6 +94,7 @@ public class UserController {
     }
 
 
+    //for profile
     @GetMapping("/getUserbyid/{id}")
     public ResponseEntity<Users> getUserById(
             @PathVariable int id,

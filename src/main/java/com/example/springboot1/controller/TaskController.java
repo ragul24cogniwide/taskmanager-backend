@@ -100,10 +100,10 @@ public class TaskController {
 
 
     //Retreiving all the tasks for the admin
-    @GetMapping("getalltasks/{id}")
-    public ResponseEntity<String> getalltasks(@PathVariable int id){
-        return tasksService.getalltasks(id);
-    }
+//    @GetMapping("getalltasks/{id}")
+//    public ResponseEntity<String> getalltasks(@PathVariable int id){
+//        return tasksService.getalltasks(id);
+//    }
 
 
 }

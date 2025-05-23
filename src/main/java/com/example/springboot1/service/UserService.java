@@ -43,6 +43,7 @@ public class UserService {
         }
     }
 
+//    for profile
     public ResponseEntity<Users> getUserById(int id) {
         try {
             Optional<Users> user = repo.findById(id);
