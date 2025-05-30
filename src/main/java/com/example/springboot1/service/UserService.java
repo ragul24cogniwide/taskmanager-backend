@@ -3,6 +3,7 @@ package com.example.springboot1.service;
 
 import com.example.springboot1.model.Users;
 import com.example.springboot1.repo.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,5 +59,32 @@ public class UserService {
     }
 
 
+    //update the users to updatebyId
+    public ResponseEntity<String> updateuserById(int id, Users updateuser) {
+        try {
+            Optional<Users> optionalUsers = repo.findById(id);
+            if (optionalUsers.isPresent()) {
+                Users existingUser = optionalUsers.get();
+
+                existingUser.setUsername(updateuser.getUsername());
+                existingUser.setEmailid(updateuser.getEmailid());
+                existingUser.setRole(updateuser.getRole());
+
+                // Check if password has changed before encoding
+//                if (!encoder.matches(updateuser.getPassword(), existingUser.getPassword())) {
+//                    String hashedPassword = encoder.encode(updateuser.getPassword());
+//                    existingUser.setPassword(hashedPassword);
+//                    existingUser.setConfirmpassword(hashedPassword);
+//                }
+
+                repo.save(existingUser);
+                return ResponseEntity.ok("User Updated Successfully");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating user: " + e.getMessage());
+        }
+    }
 
 }

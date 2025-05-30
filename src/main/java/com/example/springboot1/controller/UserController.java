@@ -111,5 +111,23 @@ public class UserController {
         }
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateuserById(
+            @PathVariable int id,
+            @RequestBody Users updateuser,
+            @RequestHeader("Authorization") String authHeader) {
+        try {
+            String token = authHeader.replace("Bearer ", "");
+            String username = jwtService.extractUserName(token);
+
+            // You can check if token user matches the updater (optional)
+            // if (!username.equals(updateuser.getUsername())) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
+            return service.updateuserById(id, updateuser);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
 
 }
