@@ -69,6 +69,7 @@ public class UserService {
                 existingUser.setUsername(updateuser.getUsername());
                 existingUser.setEmailid(updateuser.getEmailid());
                 existingUser.setRole(updateuser.getRole());
+                existingUser.setPassword(updateuser.getPassword());
 
                 // Check if password has changed before encoding
 //                if (!encoder.matches(updateuser.getPassword(), existingUser.getPassword())) {
