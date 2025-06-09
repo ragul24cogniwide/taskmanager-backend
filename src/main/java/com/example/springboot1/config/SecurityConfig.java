@@ -44,10 +44,10 @@ public class SecurityConfig {
 
         http.csrf(customizer->customizer.disable());//disabling the csrf-token
         http.authorizeHttpRequests(request -> request
-                .requestMatchers("/api/users/register", "/api/users/login","/api/tasks/**","/api/users/**").permitAll() // ✅ only allow login/register freely
+                .requestMatchers("/api/users/register", "/api/users/login","/api/tasks/**","/api/users/**").permitAll() // only allow login/register freely
                 .anyRequest().authenticated());//enabling the security for all the request
-        http.formLogin(form -> form.disable()); // ✅ disable form login
-        http.httpBasic(httpBasic -> httpBasic.disable()); // ✅ disable HTTP Basic auth
+        http.formLogin(form -> form.disable()); // disable form login
+        http.httpBasic(httpBasic -> httpBasic.disable()); //  disable HTTP Basic auth
         http.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); //do a stateleess
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

@@ -23,15 +23,15 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private static  final String SECRET="";
+//    private static  final String SECRET="";
 
-    private String secretKey;
+    private String secretKey; //private instance variable...
 
     public JwtService(){
         secretKey = generateSecretKey();
     }
 
-    public String generateSecretKey() {
+    public String generateSecretKey() { //method name
         try {
             KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
             SecretKey secretKey = keyGen.generateKey();

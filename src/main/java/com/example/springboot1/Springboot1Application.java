@@ -18,10 +18,10 @@ public class Springboot1Application {
 	@Bean
 	CommandLineRunner init(UserRepository repo, UserService service) {
 		return args -> {
-			if (repo.findByEmail("admin") == null) {
+			if (repo.findByEmail("admin@gmail.com") == null) {
 				Users admin = new Users();
 				admin.setUsername("Admin");
-				admin.setEmailid("admin");
+				admin.setEmailid("admin@gmail.com");
 				admin.setPassword("admin@123");
 				admin.setRole("ADMIN");
 				admin.setConfirmpassword("admin@123");

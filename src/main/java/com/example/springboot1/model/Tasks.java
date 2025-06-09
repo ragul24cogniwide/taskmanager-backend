@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.Date;
+//import java.util.Date;
 
 
 @Entity
@@ -16,7 +16,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Tasks {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
