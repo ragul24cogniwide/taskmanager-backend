@@ -72,11 +72,11 @@ public class UserService {
                 existingUser.setPassword(updateuser.getPassword());
 
                 // Check if password has changed before encoding
-//                if (!encoder.matches(updateuser.getPassword(), existingUser.getPassword())) {
-//                    String hashedPassword = encoder.encode(updateuser.getPassword());
-//                    existingUser.setPassword(hashedPassword);
-//                    existingUser.setConfirmpassword(hashedPassword);
-//                }
+                if (!encoder.matches(updateuser.getPassword(), existingUser.getPassword())) {
+                    String hashedPassword = encoder.encode(updateuser.getPassword());
+                    existingUser.setPassword(hashedPassword);
+                    existingUser.setConfirmpassword(hashedPassword);
+                }
 
                 repo.save(existingUser);
                 return ResponseEntity.ok("User Updated Successfully");

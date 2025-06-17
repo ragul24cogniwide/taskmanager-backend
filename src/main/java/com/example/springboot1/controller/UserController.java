@@ -23,6 +23,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "https://focus-track.vercel.app/") //for online vercel origin
+
 public class UserController {
 
 
@@ -38,10 +40,10 @@ public class UserController {
     @Autowired
     private UserRepository usersRepository;
 
-    @GetMapping("csrf-token")
-    public CsrfToken getCsrfToken(HttpServletRequest request){
-        return (CsrfToken) request.getAttribute("_csrf");
-    }
+//    @GetMapping("csrf-token")
+//    public CsrfToken getCsrfToken(HttpServletRequest request){
+//        return (CsrfToken) request.getAttribute("_csrf");
+//    }
 
     //register the new user
     @PostMapping("register")

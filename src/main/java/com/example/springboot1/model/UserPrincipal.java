@@ -54,5 +54,4 @@ public class UserPrincipal implements UserDetails {
 //        return UserDetails.super.isEnabled();
         return true;
     }
-
 }

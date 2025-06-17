@@ -16,7 +16,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tasks")
-@CrossOrigin(origins = "http://localhost:3000") // Add this
+@CrossOrigin(origins = "http://localhost:3000") //for local
+//@CrossOrigin(origins = "https://focus-track.vercel.app/") //for online vercel origin
+
 public class TaskController {
 
     @Autowired
