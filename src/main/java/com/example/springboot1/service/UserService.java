@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,14 +26,26 @@ public class UserService {
     private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
 
 
-    public String setRegister(Users user) {
+    public ResponseEntity<String> setRegister(Users user) {
+        // Check if the username already exists
+        if (repo.existsByUsername(user.getUsername())) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT) // 409 Conflict
+                    .body("Username already exists. Please choose a different username.");
+        }
+
+        // Encrypt passwords
         user.setPassword(encoder.encode(user.getPassword()));
-        System.out.println(user.getPassword());
         user.setConfirmpassword(encoder.encode(user.getConfirmpassword()));
-        System.out.println(user.getConfirmpassword());
+
+        // Save user
         repo.save(user);
-        return "User registered successfully";
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED) // 201 Created
+                .body("User registered successfully.");
     }
+
 
     public ResponseEntity<List<Users>> getusers() {
         try{
@@ -87,5 +102,31 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating user: " + e.getMessage());
         }
     }
+
+    //update the use status in the Admin side
+    @PutMapping("/updatestatus/{id}")
+    public ResponseEntity<String> updateStatus(@PathVariable int id, @RequestBody Users updateStatusRequest) {
+        try {
+            Optional<Users> optionalUser = repo.findById(id);
+            if (optionalUser.isPresent()) {
+                Users existingUser = optionalUser.get();
+
+                // ✅ Correct field: setStatus instead of setUsername
+                existingUser.setStatus(updateStatusRequest.getStatus());
+
+                repo.save(existingUser);
+                return ResponseEntity.ok("User status updated successfully.");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error updating user: " + e.getMessage());
+        }
+    }
+
+//    public Optional<Users> getUserWithTasks(int  userId) {
+//        return repo.findById(userId);
+//    }
 
 }

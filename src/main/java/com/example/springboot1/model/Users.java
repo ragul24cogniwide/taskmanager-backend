@@ -21,11 +21,14 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+
     private String username;
     private String role;
     private String emailid;
+    private String designation;
     private String password;
     private String confirmpassword;
+    private String Status;
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
