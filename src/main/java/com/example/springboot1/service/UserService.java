@@ -26,26 +26,14 @@ public class UserService {
     private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
 
 
-    public ResponseEntity<String> setRegister(Users user) {
-        // Check if the username already exists
-        if (repo.existsByUsername(user.getUsername())) {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT) // 409 Conflict
-                    .body("Username already exists. Please choose a different username.");
-        }
-
-        // Encrypt passwords
+    public String setRegister(Users user) {
         user.setPassword(encoder.encode(user.getPassword()));
+        System.out.println(user.getPassword());
         user.setConfirmpassword(encoder.encode(user.getConfirmpassword()));
-
-        // Save user
+        System.out.println(user.getConfirmpassword());
         repo.save(user);
-
-        return ResponseEntity
-                .status(HttpStatus.CREATED) // 201 Created
-                .body("User registered successfully.");
+        return "User registered successfully";
     }
-
 
     public ResponseEntity<List<Users>> getusers() {
         try{

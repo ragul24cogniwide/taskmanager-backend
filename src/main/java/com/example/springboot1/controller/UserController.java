@@ -51,10 +51,9 @@ public class UserController {
 
     //register the new user
     @PostMapping("register")
-    public ResponseEntity<String> registerUser(@RequestBody Users user) {
+    public String registerUser(@RequestBody Users user) {
         return service.setRegister(user);
     }
-
 
 
     //login to verify if the user is valid or not
